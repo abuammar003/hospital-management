@@ -77,36 +77,35 @@ export default function HeroSection() {
         </div>
 
 
-        {/* RIGHT SIDE - DOCTOR IMAGE */}
-        <div className="relative flex h-[350px] items-center justify-center sm:h-[450px] lg:h-[520px]">
+       {/* RIGHT SIDE - DOCTOR IMAGE */}
+        <div className="relative mx-auto flex h-[350px] w-full max-w-[520px] items-end justify-center sm:h-[450px] lg:h-[520px]">
 
-          {/* Teal Circle */}
-          <div
-            className="absolute bottom-0 h-[320px] w-[320px] rounded-full sm:h-[420px] sm:w-[420px] lg:h-[490px] lg:w-[490px]"
-            style={{
-              background:
-                "linear-gradient(135deg, #7DDDD8 0%, #0D9488 100%)",
-            }}
-          />
+         {/* Teal Circle */}
+         <div
+           className="absolute bottom-0 h-[300px] w-[300px] rounded-full sm:h-[400px] sm:w-[400px] lg:h-[480px] lg:w-[480px]"
+           style={{
+             background:
+               "linear-gradient(135deg, #7DDDD8 0%, #0D9488 100%)",
+           }}
+         />
 
           {/* Doctor Image */}
-          <div className="absolute bottom-0 z-10 h-[370px] w-[320px] sm:h-[490px] sm:w-[420px] lg:h-[560px] lg:w-[490px]">
+          <div className="absolute bottom-0 z-10 flex h-[350px] w-[300px] items-end justify-center  overflow-hidden rounded-full sm:h-[450px] sm:w-[400px] lg:h-[520px] lg:w-[480px]">
             <Image
-            //   src="/images/banners/hero-doctor.png"
-              src="/images/banners/hero-doctor.jpg"
+              src="/images/banners/doctor-hero.png"
               alt="Professional healthcare doctor"
-              fill
+              fill 
               priority
-              sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, 490px"
+              sizes="(max-width: 640px) 300px, (max-width: 1024px) 400px, 480px"
               className="object-contain object-bottom"
             />
           </div>
 
-          {/* Decorative Plus Icons */}
+          {/* Decorative Icons */}
           <Plus
             size={35}
             strokeWidth={5}
-            className="absolute top-8 right-2 text-teal-200"
+            className="absolute top-8 right-0 text-teal-200"
           />
 
           <Plus
@@ -114,8 +113,9 @@ export default function HeroSection() {
             strokeWidth={5}
             className="absolute bottom-10 left-0 text-teal-200"
           />
-
         </div>
+
+
       </div>
     </section>
   );

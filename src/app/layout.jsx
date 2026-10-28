@@ -1,6 +1,7 @@
 
 import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
+import Footer from "@/components/layout/Footer";
 
 export const metadata = {
   title: "YourHealth | Doctor Appointment Booking",
@@ -18,6 +19,8 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         {children}
       </body>
+
+      <Footer />
     </html>
   );
 }
