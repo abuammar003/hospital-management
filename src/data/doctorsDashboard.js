@@ -1,0 +1,112 @@
+export const doctorProfile = {
+  id: 1,
+  name: "Dr. Rahul Sharma",
+  email: "rahul@example.com",
+  phone: "9876543210",
+  specialization: "Cardiology",
+  qualification: "MBBS, MD",
+  experience: 12,
+  consultationFee: 800,
+  hospital: "City Care Hospital",
+  location: "Malegaon",
+  about:
+    "Demo cardiology specialist profile with 12 years of experience.",
+};
+
+export const doctorAppointments = [
+  {
+    id: "APT101",
+    patientName: "Aman Khan",
+    patientAge: 25,
+    gender: "Male",
+    date: "2026-11-05",
+    time: "10:30 AM",
+    reason: "Routine consultation",
+    status: "Confirmed",
+  },
+  {
+    id: "APT102",
+    patientName: "Sara Shaikh",
+    patientAge: 30,
+    gender: "Female",
+    date: "2026-11-06",
+    time: "11:00 AM",
+    reason: "Follow-up consultation",
+    status: "Pending",
+  },
+  {
+    id: "APT103",
+    patientName: "Ahmed Khan",
+    patientAge: 42,
+    gender: "Male",
+    date: "2026-11-07",
+    time: "05:30 PM",
+    reason: "General consultation",
+    status: "Pending",
+  },
+  {
+    id: "APT104",
+    patientName: "Priya Patil",
+    patientAge: 28,
+    gender: "Female",
+    date: "2026-10-20",
+    time: "12:00 PM",
+    reason: "Follow-up visit",
+    status: "Completed",
+  },
+  {
+    id: "APT105",
+    patientName: "Sameer Ali",
+    patientAge: 35,
+    gender: "Male",
+    date: "2026-10-22",
+    time: "06:00 PM",
+    reason: "Routine consultation",
+    status: "Cancelled",
+  },
+];
+
+export const doctorSchedule = [
+  {
+    day: "Monday",
+    enabled: true,
+    start: "10:00",
+    end: "18:00",
+  },
+  {
+    day: "Tuesday",
+    enabled: true,
+    start: "10:00",
+    end: "18:00",
+  },
+  {
+    day: "Wednesday",
+    enabled: true,
+    start: "10:00",
+    end: "18:00",
+  },
+  {
+    day: "Thursday",
+    enabled: true,
+    start: "10:00",
+    end: "18:00",
+  },
+  {
+    day: "Friday",
+    enabled: true,
+    start: "10:00",
+    end: "18:00",
+  },
+  {
+    day: "Saturday",
+    enabled: true,
+    start: "10:00",
+    end: "14:00",
+  },
+  {
+    day: "Sunday",
+    enabled: false,
+    start: "10:00",
+    end: "14:00",
+  },
+];

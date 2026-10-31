@@ -5,6 +5,7 @@ import Specializations from "@/components/home/Specializations";
 import FeaturedHospitals from "@/components/home/FeaturedHospitals";
 import FeaturedDoctors from "@/components/home/FeaturedDoctors";
 
+
 export default function Home() {
   return (
      <>
@@ -20,3 +21,16 @@ export default function Home() {
     </>
   );
 }
+
+
+
+
+// export default function HomePage() {
+//   return (
+//     <div className="p-10">
+//       <h1 className="text-3xl font-bold">
+//         Homepage is working!
+//       </h1>
+//     </div>
+//   );
+// }

@@ -79,14 +79,13 @@ export default function HospitalCard({ hospital }) {
         <div className="my-5 border-t border-slate-100" />
 
         {/* View Details Button */}
-        <Link
-          href={`/hospitals/${hospital.id}`}
-          className="flex items-center justify-between rounded-xl bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-600 hover:text-white"
-        >
-          View Hospital Details
-
-          <ArrowUpRight size={18} />
-        </Link>
+       <Link
+        href={`/hospitals/${hospital.id}`}
+        className="flex items-center justify-between rounded-xl bg-blue-50 px-4 py-3 text-sm font-semibold       text-blue-600 hover:bg-blue-600 hover:text-white"
+      >
+        View Hospital Details
+        <ArrowUpRight size={18} />
+      </Link>
 
       </div>
     </div>

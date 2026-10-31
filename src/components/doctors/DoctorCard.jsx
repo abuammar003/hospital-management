@@ -7,7 +7,7 @@ import {
   BriefcaseMedical,
   BadgeCheck,
   CalendarDays,
-  ArrowUpRight,
+  ArrowRight,
   IndianRupee,
 } from "lucide-react";
 
@@ -118,10 +118,10 @@ export default function DoctorCard({ doctor }) {
 
           <Link
             href={`/doctors/${doctor.id}`}
-            className="flex items-center justify-center gap-1 rounded-xl border border-blue-200 px-3 py-3 text-sm font-semibold text-blue-600 transition-colors hover:bg-blue-50"
+            className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold          text-white transition-colors hover:bg-blue-700"
           >
             View Profile
-            <ArrowUpRight size={16} />
+            <ArrowRight size={17} />
           </Link>
 
           <Link

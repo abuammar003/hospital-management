@@ -27,8 +27,14 @@ const patientLinks = [
   { name: "Book Appointment", href: "/doctors" },
   { name: "Find Hospitals", href: "/hospitals" },
   { name: "Find Specialists", href: "/doctors" },
-  { name: "My Appointments", href: "/patient/appointments" },
-  { name: "Patient Dashboard", href: "/patient" },
+  { name: "My Appointments", href: "/dashboard/patient/appointments" },
+  { name: "Patient Dashboard", href: "/dashboard/patient" },
+];
+
+const dashboardLinks = [
+  { name: "Patient Dashboard", href: "/dashboard/patient" },
+  { name: "Doctor Dashboard", href: "/dashboard/doctor" },
+  { name: "Hospital Dashboard", href: "/dashboard/hospital" },
 ];
 
 const socialLinks = [
@@ -37,6 +43,8 @@ const socialLinks = [
   { name: "LinkedIn", icon: FaLinkedinIn, href: "#" },
   { name: "Twitter", icon: FaXTwitter, href: "#" },
 ];
+
+
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -47,7 +55,7 @@ export default function Footer() {
       {/* Main Footer */}
       <div className="mx-auto max-w-7xl px-5 pt-16 pb-12 lg:px-8">
 
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Column 1 - Brand */}
           <div>
@@ -138,6 +146,32 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+
+
+          {/* Dashboard Access Section */}
+          <div>
+            <h3 className="mb-6 text-lg font-semibold">
+              Dashboard Access
+            </h3>
+
+            <ul className="space-y-4">
+              {dashboardLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-blue-400"
+                  >
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform group-hover:translate-x-1"
+                    />
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
 
           {/* Column 4 - Contact */}
           <div>
