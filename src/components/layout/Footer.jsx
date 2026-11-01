@@ -35,6 +35,7 @@ const dashboardLinks = [
   { name: "Patient Dashboard", href: "/dashboard/patient" },
   { name: "Doctor Dashboard", href: "/dashboard/doctor" },
   { name: "Hospital Dashboard", href: "/dashboard/hospital" },
+  { name: "Admin Dashboard", href: "/dashboard/admin"}
 ];
 
 const socialLinks = [
