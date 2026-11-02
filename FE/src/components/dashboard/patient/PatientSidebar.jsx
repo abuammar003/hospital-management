@@ -4,38 +4,33 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import {
-  HeartPulse,
   LayoutDashboard,
   CalendarDays,
-  Clock,
   UserRound,
+  Stethoscope,
   Home,
+  HeartPulse,
 } from "lucide-react";
 
 const menuItems = [
   {
     name: "Overview",
-    href: "/dashboard/doctor",
+    href: "/dashboard/patient",
     icon: LayoutDashboard,
   },
   {
-    name: "Appointments",
-    href: "/dashboard/doctor/appointments",
+    name: "My Appointments",
+    href: "/dashboard/patient/appointments",
     icon: CalendarDays,
   },
   {
-    name: "Availability",
-    href: "/dashboard/doctor/availability",
-    icon: Clock,
-  },
-  {
     name: "My Profile",
-    href: "/dashboard/doctor/profile",
+    href: "/dashboard/patient/profile",
     icon: UserRound,
   },
 ];
 
-export default function DoctorSidebar() {
+export default function PatientSidebar() {
   const pathname = usePathname();
 
   return (
@@ -49,21 +44,16 @@ export default function DoctorSidebar() {
         <HeartPulse size={29} className="text-teal-600" />
 
         <span className="text-xl font-bold text-slate-900">
-          Your<span className="text-teal-600">Health</span>
+          Med<span className="text-teal-600">Vion</span>
         </span>
       </Link>
 
-      <div className="px-6 pt-6">
-        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Doctor Portal
-        </p>
-      </div>
-
-      {/* Navigation */}
+      {/* Menu */}
       <nav className="flex gap-2 overflow-x-auto p-4 lg:flex-col">
 
         {menuItems.map((item) => {
           const Icon = item.icon;
+
           const isActive = pathname === item.href;
 
           return (
@@ -73,10 +63,11 @@ export default function DoctorSidebar() {
               className={`flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition ${
                 isActive
                   ? "bg-teal-50 text-teal-700"
-                  : "text-slate-600 hover:bg-slate-50"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-teal-600"
               }`}
             >
               <Icon size={19} />
+
               {item.name}
             </Link>
           );
@@ -84,7 +75,21 @@ export default function DoctorSidebar() {
 
       </nav>
 
+      {/* Quick Links */}
       <div className="hidden border-t border-slate-100 p-4 lg:block">
+
+        <p className="mb-3 px-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
+          Quick Links
+        </p>
+
+        <Link
+          href="/doctors"
+          className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-slate-600 hover:bg-slate-50"
+        >
+          <Stethoscope size={19} />
+          Find Doctors
+        </Link>
+
         <Link
           href="/"
           className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-slate-600 hover:bg-slate-50"
@@ -92,6 +97,7 @@ export default function DoctorSidebar() {
           <Home size={19} />
           Back to Home
         </Link>
+
       </div>
 
     </aside>

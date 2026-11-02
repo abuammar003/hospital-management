@@ -74,7 +74,7 @@ export default function Navbar() {
           </div>
 
           <span className="text-xl font-bold text-slate-900">
-            Your<span className="text-blue-600">Health</span>
+            Med<span className="text-blue-600">Vion</span>
           </span>
         </Link>
 

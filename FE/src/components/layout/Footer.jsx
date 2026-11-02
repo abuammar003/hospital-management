@@ -69,7 +69,7 @@ export default function Footer() {
               </div>
 
               <span className="text-2xl font-bold">
-                Your<span className="text-blue-400">Health</span>
+                Med<span className="text-blue-400">Vion</span>
               </span>
             </Link>
 
@@ -249,7 +249,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-slate-400">
-            © {currentYear} YourHealth. All rights reserved.
+            © {currentYear} MedVion. All rights reserved.
           </p>
 
           {/* Legal Links */}

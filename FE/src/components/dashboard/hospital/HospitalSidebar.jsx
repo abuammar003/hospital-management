@@ -54,7 +54,7 @@ export default function HospitalSidebar() {
         <HeartPulse size={29} className="text-teal-600" />
 
         <span className="text-xl font-bold text-slate-900">
-          Your<span className="text-teal-600">Health</span>
+          Med<span className="text-teal-600">Vion</span>
         </span>
       </Link>
 
