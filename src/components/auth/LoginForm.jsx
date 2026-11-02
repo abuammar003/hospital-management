@@ -10,7 +10,7 @@ import {
   Building2,
 } from "lucide-react";
 
-import { getDashboardRoute } from "@/lib/auth";
+import { saveUser, getDashboardRoute } from "@/lib/auth";
 
 import {
   HeartPulse,
@@ -53,6 +53,8 @@ export default function LoginForm() {
     setMessage("Please fill in all required fields.");
     return;
   }
+
+  saveUser(role);
 
   // Demo login only
   router.push(getDashboardRoute(role));
