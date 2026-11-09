@@ -37,6 +37,8 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -46,18 +48,52 @@ export default function LoginForm() {
     }));
   };
 
- const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
+  setMessage("");
 
   if (!formData.email || !formData.password) {
     setMessage("Please fill in all required fields.");
     return;
   }
 
-  saveUser(role);
+  try {
+    setIsLoading(true);
 
-  // Demo login only
-  router.push(getDashboardRoute(role));
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+        role: role,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log("Login API Status:", response.status);
+console.log("Login API Response:", data);
+
+    if (!response.ok) {
+      setMessage(data.message || "Login failed. Please try again.");
+      return;
+    }
+
+    // Save the actual role returned by the backend
+    saveUser(data.user.role);
+
+    // Redirect according to actual account role
+    router.push(getDashboardRoute(data.user.role));
+
+  } catch (error) {
+    console.error("Login Error:", error);
+    setMessage("Unable to connect to server. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 
@@ -233,9 +269,10 @@ export default function LoginForm() {
           {/* Login Button */}
           <button
             type="submit"
-            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white transition hover:bg-teal-700"
+            disabled={isLoading}
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white transition hover:bg-teal-700" 
           >
-            Sign In
+            {isLoading ? "Signing In..." : "Sign In"}
             <ArrowRight size={18} />
           </button>
 
@@ -252,10 +289,7 @@ export default function LoginForm() {
           </Link>
         </p>
 
-        <p className="mt-5 text-center text-xs text-slate-400">
-          Demo interface — login is not active yet.
-        </p>
-
+       
       </div>
 
     </div>

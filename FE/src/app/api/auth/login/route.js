@@ -8,51 +8,63 @@ import User from "@/models/User";
 
 export async function POST(request) {
   try {
-    // Connect to MongoDB
     await connectDB();
 
-    // Get login details
-    const { email, password } = await request.json();
+    const { phone, password, role } = await request.json();
 
-    // Check required fields
-    if (!email || !password) {
+    // Required fields validation
+    if (!phone || !password || !role) {
       return NextResponse.json(
         {
           success: false,
-          message: "Email and password are required",
+          message: "Mobile number, password and role are required.",
         },
         { status: 400 }
       );
     }
 
-    // Find user by email
+    // Validate role
+    const allowedRoles = ["patient", "doctor", "hospital"];
+
+    if (!allowedRoles.includes(role)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid user role.",
+        },
+        { status: 400 }
+      );
+    }
+
+    const cleanPhone = String(phone).trim();
+
+    // Find user using mobile number
     const user = await User.findOne({
-      email: email.toLowerCase().trim(),
+      phone: cleanPhone,
     });
 
-    // Check if user exists
     if (!user) {
       return NextResponse.json(
         {
           success: false,
-          message: "Invalid email or password",
+          message: "Invalid mobile number or password.",
         },
         { status: 401 }
       );
     }
 
-    // Check if account is active
+    // Check account status
     if (!user.isActive) {
       return NextResponse.json(
         {
           success: false,
-          message: "Your account is inactive",
+          message: "Your account is inactive.",
         },
         { status: 403 }
       );
     }
 
-    // Compare entered password with hashed password
+    // Check password
     const isPasswordCorrect = await bcrypt.compare(
       password,
       user.password
@@ -62,9 +74,20 @@ export async function POST(request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Invalid email or password",
+          message: "Invalid mobile number or password.",
         },
         { status: 401 }
+      );
+    }
+
+    // Verify selected role
+    if (user.role !== role) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: `This account is registered as ${user.role}. Please select the correct role.`,
+        },
+        { status: 403 }
       );
     }
 
@@ -80,21 +103,19 @@ export async function POST(request) {
         role: user.role,
       },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
+      { expiresIn: "1d" }
     );
 
-    // Create response
+    // Send response
     const response = NextResponse.json(
       {
         success: true,
-        message: "Login successful",
+        message: "Login successful.",
         user: {
           id: user._id,
           name: user.name,
-          email: user.email,
           phone: user.phone,
+          email: user.email || null,
           role: user.role,
           isVerified: user.isVerified,
         },
@@ -102,7 +123,7 @@ export async function POST(request) {
       { status: 200 }
     );
 
-    // Store JWT in secure HTTP-only cookie
+    // Store token in HTTP-only cookie
     response.cookies.set("medvion_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -112,14 +133,13 @@ export async function POST(request) {
     });
 
     return response;
-
   } catch (error) {
-    console.log("Login Error:", error);
+    console.error("Login Error:", error);
 
     return NextResponse.json(
       {
         success: false,
-        message: "Something went wrong during login",
+        message: "Something went wrong during login.",
       },
       { status: 500 }
     );

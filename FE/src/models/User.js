@@ -9,20 +9,21 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
+    phone: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
     email: {
       type: String,
-    //   required: true,
-      unique: true,
+      default: null,
       lowercase: true,
       trim: true,
     },
 
     password: {
-      type: String,
-      required: true,
-    },
-
-    phone: {
       type: String,
       required: true,
     },
@@ -43,12 +44,20 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
+  { timestamps: true }
+);
+
+// Email unique only when an email is provided
+userSchema.index(
+  { email: 1 },
   {
-    timestamps: true,
+    unique: true,
+    partialFilterExpression: {
+      email: { $type: "string" },
+    },
   }
 );
 
-const User =
-  mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export default User;
