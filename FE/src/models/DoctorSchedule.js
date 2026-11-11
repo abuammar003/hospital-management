@@ -1,3 +1,5 @@
+// Is model mein doctor ke available days, consultation timings aur appointment slot duration store honge.
+
 
 import mongoose from "mongoose";
 
@@ -15,7 +17,7 @@ const doctorScheduleSchema = new mongoose.Schema(
       required: true,
     },
 
-    day: {
+    dayOfWeek: {
       type: String,
       enum: [
         "Monday",
@@ -41,9 +43,8 @@ const doctorScheduleSchema = new mongoose.Schema(
 
     slotDuration: {
       type: Number,
-    //   default: 30,/
+      default: 10,
       min: 5,
-      max: 30, 
     },
 
     isAvailable: {
@@ -54,6 +55,12 @@ const doctorScheduleSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
+);
+
+// One schedule per doctor, hospital and weekday
+doctorScheduleSchema.index(
+  { doctorId: 1, hospitalId: 1, dayOfWeek: 1 },
+  { unique: true }
 );
 
 const DoctorSchedule =
