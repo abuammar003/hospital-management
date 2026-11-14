@@ -13,80 +13,65 @@ const doctorSchema = new mongoose.Schema(
       unique: true,
     },
 
-    // Doctors Name
+    // Doctor ka professional/display name.
     name: {
       type: String,
       required: true,
       trim: true,
     },
 
-    // Doctor ke login account se connection.
+    // Doctor ki specialization.
     specialization: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Specialization",
       required: true,
     },
 
-    // Doctor Ki Qualification Collect Karna
+    // Educational qualification.
     qualification: {
       type: String,
       required: true,
       trim: true,
     },
 
-    // Doctor ka medical registration number; unique rahega.
+    // Medical registration number.
     registrationNumber: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
+      uppercase: true,
+    },
+
+    // Registration kis medical council/authority ne issue kiya.
+    registrationAuthority: {
+      type: String,
+      required: true,
       trim: true,
     },
 
-    // Doctor Ka Experience
+    // Total professional experience in years.
     experience: {
       type: Number,
       default: 0,
       min: 0,
     },
 
-    // Doctor ki Fees
-    consultationFee: {
-      type: Number,
-      default: 0,
-      min: 0,
-    },
-
-    // Doctor ek ya multiple hospitals mein work kar sakta hai.
-    hospitalIds: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Hospital",
-      },
-    ],
-
-    location: {
-      type: String,
-      default: "",
-      trim: true,
-    },
-
+    // Doctor ki professional biography.
     bio: {
       type: String,
       default: "",
       trim: true,
+      maxlength: 2000,
     },
 
+    // Doctor ki profile image URL.
     image: {
       type: String,
       default: "",
+      trim: true,
     },
 
-    // Verification approval ka status.
-    isVerified: {
-      type: Boolean,
-      default: false,
-    },
-
+    // Doctor ki verification/approval status.
     status: {
       type: String,
       enum: ["pending", "approved", "rejected"],
@@ -96,6 +81,15 @@ const doctorSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
+);
+
+// Ek doctor account se sirf ek doctor profile.
+// doctorSchema.index({ userId: 1 }, { unique: true });
+
+// Registration number ko issuing authority ke saath unique rakhein.
+doctorSchema.index(
+  { registrationAuthority: 1, registrationNumber: 1 },
+  { unique: true }
 );
 
 const Doctor =
