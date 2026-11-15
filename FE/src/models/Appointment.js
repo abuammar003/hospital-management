@@ -1,76 +1,99 @@
 // Is model mein patient ki booking details, selected doctor, hospital, appointment date, time aur booking status store hoga.
 
 
+
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema(
   {
-    // Booking karne wale patient ka User ID
+    // Online booking mein patient ka User ID required hoga.
+    // Offline booking mein patientId null rahega.
     patientId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      default: null,
+      required: function () {
+        return this.bookingSource === "online";
+      },
     },
 
-    // Selected doctor ka User ID
+    // Patient ki basic details
+    patientName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    patientPhone: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    // Selected doctor
     doctorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Doctor",
       required: true,
     },
 
-    // Selected Hospital ka User ID
+    // Selected hospital
     hospitalId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Hospital",
       required: true,
     },
 
-    // 	Related department, optional
+    // Optional department
     departmentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Department",
       default: null,
     },
 
-    // 	Appointment ki date
+    // Appointment date
     appointmentDate: {
       type: Date,
       required: true,
     },
 
-    // Appointment timing
-    startTime: {
+    // Patient ko dikhaya jane wala slot time
+    // Example: "21:00" = 9:00 PM
+    bookingSlotTime: {
       type: String,
       required: true,
     },
 
-    endTime: {
+    // Booking source
+    bookingSource: {
       type: String,
+      enum: ["online", "offline"],
+      default: "online",
       required: true,
     },
 
-
+    // Appointment reason
     reason: {
       type: String,
       default: "",
       trim: true,
     },
 
+    // Additional notes
     notes: {
       type: String,
       default: "",
       trim: true,
     },
 
-    // 	Booking ke waqt consultation fee
+    // Booking ke waqt consultation fee
     consultationFee: {
       type: Number,
       required: true,
       min: 0,
     },
 
-    // 	Booking ki current status
+    // Appointment status
     status: {
       type: String,
       enum: [
@@ -83,7 +106,7 @@ const appointmentSchema = new mongoose.Schema(
       default: "pending",
     },
 
-    // Cancel karne ka reason
+    // Cancellation reason
     cancellationReason: {
       type: String,
       default: "",
@@ -95,14 +118,16 @@ const appointmentSchema = new mongoose.Schema(
   }
 );
 
-// Useful for fetching appointments by doctor and date
+// Doctor + Hospital + Date + Slot ke appointments fetch karne ke liye
 appointmentSchema.index({
   doctorId: 1,
+  hospitalId: 1,
   appointmentDate: 1,
+  bookingSlotTime: 1,
   status: 1,
 });
 
-// Useful for fetching a patient's appointments
+// Patient ki appointments fetch karne ke liye
 appointmentSchema.index({
   patientId: 1,
   appointmentDate: -1,

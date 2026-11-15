@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const hospitalSchema = new mongoose.Schema(
   {
-    // Hospital account ka User model se connection.
+    // Hospital admin ka User account.
     adminId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -13,14 +13,14 @@ const hospitalSchema = new mongoose.Schema(
       unique: true,
     },
 
-    // Name of the Hospital
+    // Hospital name.
     name: {
       type: String,
       required: true,
       trim: true,
     },
 
-    // Hospital ka unique URL, jaise city-care-hospital.
+    // Unique URL slug.
     slug: {
       type: String,
       required: true,
@@ -29,39 +29,42 @@ const hospitalSchema = new mongoose.Schema(
       trim: true,
     },
 
-  
+    // Hospital registration number.
+    registrationNumber: {
+      type: String,
+      required: true,
+      trim: true,
+      uppercase: true,
+    },
+
     description: {
       type: String,
       default: "",
       trim: true,
     },
 
-    // Hospital ka structured address.
+    // Hospital address.
     address: {
       street: {
         type: String,
         required: true,
         trim: true,
       },
-
       city: {
         type: String,
         required: true,
         trim: true,
       },
-
       state: {
         type: String,
         required: true,
         trim: true,
       },
-
       country: {
         type: String,
         default: "India",
         trim: true,
       },
-
       pincode: {
         type: String,
         required: true,
@@ -82,7 +85,7 @@ const hospitalSchema = new mongoose.Schema(
       trim: true,
     },
 
-    // ICU, Emergency, Pharmacy, Laboratory etc.
+    // Hospital facilities.
     facilities: {
       type: [String],
       default: [],
@@ -91,12 +94,7 @@ const hospitalSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "",
-    },
-
-    // Admin verification complete hui ya nahi.
-    isVerified: {
-      type: Boolean,
-      default: false,
+      trim: true,
     },
 
     // Hospital approval status.
@@ -109,6 +107,12 @@ const hospitalSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
+);
+
+// Registration number unique rahega.
+hospitalSchema.index(
+  { registrationNumber: 1 },
+  { unique: true }
 );
 
 const Hospital =

@@ -31,6 +31,7 @@ const specializationSchema = new mongoose.Schema(
     image: {
       type: String,
       default: "",
+      trim: true,
     },
 
     isActive: {
