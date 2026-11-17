@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const verificationRequestSchema = new mongoose.Schema(
   {
-    // 	Application submit karne wale account ka ID
+    // Application submit karne wale account ka ID
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -24,23 +24,6 @@ const verificationRequestSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
-
-    // Medical registration certificate, hospital license etc.
-    documents: [
-      {
-        documentType: {
-          type: String,
-          required: true,
-          trim: true,
-        },
-
-        documentUrl: {
-          type: String,
-          required: true,
-          trim: true,
-        },
-      },
-    ],
 
     // Pending, approved ya rejected
     status: {
@@ -78,6 +61,7 @@ const verificationRequestSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    collection: "verificationRequest",
   }
 );
 

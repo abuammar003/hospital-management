@@ -40,7 +40,7 @@ const dashboardLinks = [
 
 const socialLinks = [
   { name: "Facebook", icon: FaFacebookF, href: "#" },
-  { name: "Instagram", icon: FaInstagram, href: "#" },
+  { name: "Instagram", icon: FaInstagram, href: "https://instagram.com/abuaammar03" },
   { name: "LinkedIn", icon: FaLinkedinIn, href: "#" },
   { name: "Twitter", icon: FaXTwitter, href: "#" },
 ];
@@ -88,8 +88,8 @@ export default function Footer() {
                 return (
                   <span
                     key={social.name}
-                    title={`${social.name} — Coming soon`}
-                    aria-label={`${social.name} — Coming soon`}
+                    title={`${social.name} — ${social.href}`}
+                    aria-label={`${social.name} — ${social.href}`}
                     className="flex h-10 w-10 items-center cursor-pointer justify-center rounded-lg bg-slate-800 text-slate-400"
                   >
                     <Icon size={18} />
@@ -213,7 +213,7 @@ export default function Footer() {
                   </p>
 
                   <p className="mt-1 text-sm text-slate-400">
-                    Coming Soon
+                    +91 8180951252
                   </p>
                 </div>
               </div>
@@ -231,7 +231,7 @@ export default function Footer() {
                   </p>
 
                   <p className="mt-1 text-sm text-slate-400">
-                    Coming Soon
+                    ammarshah1252@gmail.com
                   </p>
                 </div>
               </div>
